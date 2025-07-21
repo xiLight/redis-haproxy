@@ -22,8 +22,8 @@ This project provides a Redis server with TLS encryption – easy to use via Doc
 
 1. **Clone the repo**
    ```
-   git clone https://github.com/YOUR_GITHUB_USER/redis-haproxy-tls.git
-   cd redis-haproxy-tls
+   git clone https://github.com/xiLight/redis-haproxy.git
+   cd redis-haproxy
    ```
 
 2. **Create your .env**
@@ -49,12 +49,13 @@ This project provides a Redis server with TLS encryption – easy to use via Doc
    ```
 
 5. **Use Redis**
-   - Connect with a Redis client that supports TLS (e.g. `redis-cli` v6+):
-     ```
-     redis-cli -h <your-domain> -p 6379 --tls --cacert /etc/ssl/certs/ca-certificates.crt -a <your-password>
-     ```
+   Connect with a Redis client that supports TLS (e.g. `redis-cli` v6+):
      URL
      ```rediss://:PW@DOMAIN:6379```
+
+     ```java
+     new JedisPool(poolConfig, redisHost, redisPort, 5000, redisPassword, 0, true);
+     ```
 
 ---
 
@@ -82,8 +83,3 @@ This project provides a Redis server with TLS encryption – easy to use via Doc
 - `DOMAIN`: Your domain for SSL certificate (required)
 - `EMAIL`: Email for Let's Encrypt notifications (required)
 - `CONTAINER_NAME`: (Optional) Name for the Redis container (default: `redis`)
-
----
-
-## License
-MIT 

@@ -22,8 +22,8 @@ Dieses Projekt stellt einen Redis-Server mit TLS-Verschlüsselung bereit – ein
 
 1. **Repo klonen**
    ```
-   git clone https://github.com/DEIN_GITHUB_USER/redis-haproxy-tls.git
-   cd redis-haproxy-tls
+   git clone https://github.com/xiLight/redis-haproxy.git
+   cd redis-haproxy
    ```
 
 2. **.env anlegen**
