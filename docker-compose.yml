@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  redis:
+    image: redis:7.2-alpine
+    container_name: ${CONTAINER_NAME:-redis}
+    restart: unless-stopped
+    volumes:
+      - redis_data:/data
+    command: >
+      redis-server
+      --appendonly yes
+      --appendfsync everysec
+      --maxmemory-policy allkeys-lru
+      --requirepass '${REDIS_PASSWORD}'
+      --timeout 0
+    expose:
+      - "6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "$REDIS_PASSWORD", "ping"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  haproxy:
+    image: haproxy:2.9
+    container_name: haproxy
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
+      - ./certs:/certs:ro
+    depends_on:
+      - redis
+
+volumes:
+  redis_data:
